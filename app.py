@@ -1,0 +1,70 @@
+from flask import Flask, render_template, redirect, url_for, flash, request
+from forms import ItemForm
+from db import db
+from models import Items
+from datetime import datetime
+
+app = Flask(__name__)
+
+app.config["SECRET_KEY"] = 'secret key no one know'
+db_filename = 'item_directory.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_filename}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+
+@app.route('/items', methods=['GET', 'POST'])
+def items():
+    items = Items.query.all()
+    items_date = Items.query.with_entities(Items.received_date).all()
+    days_since = [(datetime.now().date()-date[0]).days for date in items_date]
+    edit_form = ItemForm(csrf_enabled=False)
+    add_form = ItemForm(csrf_enabled=False)
+    if add_form.validate_on_submit():
+        item_data = Items(name=add_form.name.data, received_date=add_form.received_date.data,
+                          is_defect=add_form.is_defect.data, description=add_form.description.data)
+        db.session.add(item_data)
+        try:
+            db.session.commit()
+            flash("add")
+        except:
+            flash(add_form.errors)
+            db.session.rollback()
+        return redirect(url_for('items'))
+    return render_template("items.html", items_and_counts=zip(items, days_since), add_form=add_form, edit_form=edit_form)
+
+
+@app.route('/delete/<int:item_id>', methods=['GET', 'POST'])
+def delete(item_id):
+    item = Items.query.get(item_id)
+    db.session.delete(item)
+    try:
+        db.session.commit()
+        flash('delete')
+    except:
+        db.session.rollback()
+    return redirect(url_for('items'))
+
+@app.route('/update/<int:item_id>', methods=['POST'])
+def update(item_id):
+    item = Items.query.get(item_id)
+    item.name = request.edit_form.data
+    item.received_date = request.edit_form.received_date
+    item.is_defect = request.edit_form.is_defect
+    item.description = request.edit_form.description
+    try:
+        db.session.commit()
+        flash('update')
+    except:
+        db.session.rollback()
+    return redirect(url_for('items'))
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% include "header.html" %}
+
+{% block title %}
+Items
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if message == 'delete' %}
+        {% set message = 'Item deleted succesfully' %}
+      {% elif message == 'exist' %}
+        {% set message = 'Item already exist' %}
+      {% elif message == 'add' %}
+        {% set message = 'Item added succesfully' %}
+      {% elif message == 'update' %}
+        {% set message = 'Item updated succesfully' %}
+      {% endif %}
+      <div
+        class="alert bg-green-100 rounded-lg py-5 px-6 mx-auto mb-3 text-base text-green-700 flex justify-center w-9/12 alert-dismissible fade show "
+        role="alert">{{ message }}
+        <button type="button" data-bs-dismiss="alert" aria-label="Close"
+          class="btn-close box-content w-4 h-4 p-1 ml-auto text-green-900 border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-green-900 hover:opacity-75 hover:no-underline">
+        </button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<section class="overflow-hidden text-gray-700">
+  <div class="container px-5 py-2 mx-auto lg:px-32 mb-10">
+    <div class="flex flex-wrap -m-1 md:-m-2 gap-4 justify-center">
+      {% for item, day_counts in items_and_counts %}
+        <div class="rounded-lg shadow-lg bg-slate-200 min-w-min max-w-[288px] flex flex-wrap w-1/4">
+          <div class="p-6 flex flex-col justify-between flex-grow">
+            <h5 class="text-gray-900 text-xl font-medium mb-2">{{ item.name }}</h5>
+            <p class="text-gray-700 text-base mb-4">Received Date: {{ item.received_date }}</p>
+            <p class="text-gray-700 text-base mb-4 flex-grow">
+              {{ item.description }}
+            </p>
+            <div class="flex gap-3 justify-between">
+              <button data-bs-toggle="modal" data-bs-target="#editItemModal{{ item.id }}" data-mdb-ripple="true" data-mdb-ripple-color="light" data-mdb-ripple-centered="true" type="button"
+                class="inline-block px-6 py-2.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out flex-grow basis-6">Edit
+              </button>
+              <a href="/delete/{{ item.id }}" onclick="myAlert()">
+                <button data-mdb-ripple="true" data-mdb-ripple-color="light" data-mdb-ripple-centered="true" type="button"
+                  class="inline-block px-6 py-2.5 bg-red-300 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-500 hover:shadow-lg focus:bg-red-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out flex-grow basis-6">Delete
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Edit item modal -->
+        <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+          id="editItemModal{{ item.id }}" tabindex="-1" aria-labelledby="modalEdit{{ item.id }}" aria-hidden="true">
+          <div class="modal-dialog relative w-auto pointer-events-none">
+            <div
+              class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+              <div
+                class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                <h5 class="text-xl font-medium leading-normal text-gray-800" id="modalEdit{{ item.id }}">Edit item #{{ item.id }}</h5>
+                <button type="button"
+                  class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                  data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body relative p-4">
+                <div class="flex justify-center">
+                  <div class="mb-3 w-9/12">
+                    <form action="/items" method="POST" class="flex flex-col gap-y-4">
+                      {{ edit_form.hidden_tag() }}
+                      <div>
+                        {{ edit_form.name.label(class='form-label inline-block mb-2 text-gray-700') }}
+                        {{ edit_form.name(class='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700
+                        bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none') }}
+                      </div>
+                      <div>
+                        {{ edit_form.received_date.label(class='text-gray-700') }}
+                        {{ edit_form.received_date(class='form-control block w-full px-3 py-1.5 text-base font-normal
+                        text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition
+                        ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none') }}
+                      </div>
+                      <div>
+                        {{ edit_form.description.label(class='form-label inline-block mb-2 text-gray-700') }}
+                        {{ edit_form.description(class='form-control block w-full px-3 py-1.5 text-base font-normal
+                        text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition
+                        ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none') }}
+                      </div>
+                      {{ edit_form.submit(class='px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight
+                      uppercase rounded
+                      shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none
+                      focus:ring-0
+                      transition duration-150 ease-in-out ml-1 cursor-pointer') }}
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                <button type="button"
+                  class="px-6 py-2.5 bg-neutral-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                  data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- New item button -->
+<div class=" flex justify-center">
+  <button type="button" class="px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-emerald-800 active:shadow-lg transition duration-150 ease-in-out" data-bs-toggle="modal" data-bs-target="#addItemModal" data-mdb-ripple="true" data-mdb-ripple-color="light">
+    New Item
+  </button>
+</div>
+
+<!-- New item modal -->
+<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+  id="addItemModal" tabindex="-1" aria-labelledby="modalAddItem" aria-hidden="true">
+  <div class="modal-dialog relative w-auto pointer-events-none">
+    <div
+      class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+      <div
+        class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+        <h5 class="text-xl font-medium leading-normal text-gray-800" id="modalAddItem">Add new item</h5>
+        <button type="button"
+          class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+          data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body relative p-4">
+        <div class="flex justify-center">
+          <div class="mb-3 w-9/12">
+            <form action="/items" method="POST" class="flex flex-col gap-y-4">
+              {{ add_form.hidden_tag() }}
+              <div>
+                {{ add_form.name.label(class='form-label inline-block mb-2 text-gray-700') }}
+                {{ add_form.name(class='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none') }}
+              </div>
+              <div>
+                {{ add_form.received_date.label(class='text-gray-700') }}
+                {{ add_form.received_date(class='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none') }}
+              </div>
+              <div>
+                {{ add_form.description.label(class='form-label inline-block mb-2 text-gray-700') }}
+                {{ add_form.description(class='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none') }}
+              </div>
+              {{ add_form.submit(class='px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded
+              shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none focus:ring-0
+              transition duration-150 ease-in-out ml-1 cursor-pointer') }}
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+        <button type="button" class="px-6 py-2.5 bg-neutral-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 transition duration-150 ease-in-out" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

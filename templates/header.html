@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav class="bg-gray-100 px-5 py-5 rounded-md w-1/2 my-3 mx-auto">
+  <ol class="list-none flex justify-center">
+    <li><a href="{{ url_for('index') }}" class="text-sky-600 hover:text-sky-700 hover:font-bold">Home</a></li>
+    <li><span class="text-gray-500 mx-2">|</span></li>
+    <li><a href="{{ url_for('items') }}" class="text-sky-600 hover:text-sky-700 hover:font-bold">Items</a></li>
+    <li><span class="text-gray-500 mx-2">|</span></li>
+    <li class="text-gray-500">Data</li>
+  </ol>
+</nav>
+
+{% endblock %}

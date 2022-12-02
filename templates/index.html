@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<div class="p-6 rounded-lg bg-gray-100 text-gray-700 w-9/12 m-auto">
+  <h2 class="font-semibold text-3xl mb-5">Items Directory App</h2>
+  <p>
+    This is a simple Flask app with CRUD operations, interacting with an SQLite database, styled with tailwind CSS and <a href="https://tailwind-elements.com/" target="_blank" class="text-sky-500 hover:font-bold hover:text-sky-600" rel="noopener noreferrer">tailwind elements</a>.
+  </p>
+  <hr class="my-6 border-gray-300" />
+  <p>
+    This app lets you add, edit and remove items.
+  </p>
+  <a href="{{ url_for('items') }}">
+    <button type="button"
+      class="inline-block px-6 py-2.5 mt-4 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-emerald-700 focus:bg-emerald-700 focus:outline-none focus:ring-0 active:bg-emerald-800 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">Go to items page
+    </button>
+  </a>
+</div>
+
+{% endblock %}
