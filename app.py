@@ -7,7 +7,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 app.config["SECRET_KEY"] = 'secret key no one know'
-db_filename = 'item_directory.db'
+db_filename = 'test.db'
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_filename}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
