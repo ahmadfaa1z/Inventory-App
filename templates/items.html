@@ -11,15 +11,24 @@
     {% for item, day_counts in items_and_counts %}
       <div class="rounded-lg shadow-lg bg-slate-200 min-w-min max-w-[288px] flex flex-wrap w-1/4">
         <div class="p-6 flex flex-col justify-between flex-grow">
-          <h5 class="text-gray-900 text-xl font-medium mb-2">{{ item.name }}</h5>
-          <p class="text-gray-700 text-base mb-4">Received Date: <span class="inline-block font-bold">{{ item.received_date }}</span></p>
-          <p class="text-gray-700 text-base mb-4">It has been <span class="text-lg font-bold">{{ day_counts }}</span> days</p>
-          <p class="text-gray-700 text-base mb-4 flex-grow">
+          <h5 class="text-gray-900 text-xl font-medium mb-4">{{ item.name }}</h5>
+          <p class="text-gray-700 text-base">Received Date: <span class="inline-block font-bold">{{ item.received_date }}</span></p>
+          <p class="text-gray-700 text-base">It has been <span class="text-lg font-bold">{{ day_counts }}</span> days</p>
+          {% if item.is_defect == False %}
+              <div class="my-2">
+                <span class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-500 text-white rounded-full">Item is still okay</span>
+              </div>
+          {% else %}
+              <div class="my-2">
+                <span class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded-full">Item has defect</span>
+              </div>
+          {% endif %}
+          <p class="text-gray-700 text-base flex-grow mb-6">
             {{ item.description }}
           </p>
           <div class="flex gap-3 justify-between">
-            <a href="/edit/{{ item.id }}" data-mdb-ripple="true" data-mdb-ripple-color="light" class="px-6 py-2.5 bg-cyan-600 text-center text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out flex-grow basis-6">Edit</a>
-            <button data-mdb-ripple="true" data-mdb-ripple-color="light" data-bs-toggle="modal" data-bs-target="#deleteModal{{ item.id }}" type="button" class="inline-block px-6 py-2.5 bg-red-300 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-500 hover:shadow-lg focus:bg-red-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out flex-grow basis-6">Delete
+            <a href="/edit/{{ item.id }}" data-mdb-ripple="true" data-mdb-ripple-color="light" class="px-6 py-2.5 bg-sky-600 text-center text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-700 hover:shadow-lg focus:bg-sky-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-800 active:shadow-lg transition duration-150 ease-in-out flex-grow basis-6">Edit</a>
+            <button data-mdb-ripple="true" data-mdb-ripple-color="light" data-bs-toggle="modal" data-bs-target="#deleteModal{{ item.id }}" type="button" class="inline-block px-6 py-2.5 bg-red-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-500 hover:shadow-lg focus:bg-red-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out flex-grow basis-6">Delete
             </button>
           </div>
         </div>
@@ -100,9 +109,7 @@
                 {{ add_form.description.label(class='form-label inline-block mb-2 text-gray-700') }}
                 {{ add_form.description(class='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none') }}
               </div>
-              {{ add_form.submit(class='px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded
-              shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none focus:ring-0
-              transition duration-150 ease-in-out ml-1 cursor-pointer') }}
+              {{ add_form.submit(class='px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none focus:ring-0 transition duration-150 ease-in-out ml-1 cursor-pointer', value = 'Add') }}
             </form>
           </div>
         </div>
