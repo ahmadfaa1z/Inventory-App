@@ -7,14 +7,4 @@ class ItemForm(FlaskForm):
     received_date = DateField("Received date", validators=[DataRequired()])
     is_defect = BooleanField("Defect status")
     description = TextAreaField("Item description")
-    submit = SubmitField("Add")
-
-class EditForm(FlaskForm):
-    name = StringField("Item name", validators=[DataRequired()])
-    received_date = DateField("Received date", validators=[DataRequired()])
-    is_defect = BooleanField("Defect status")
-    description = TextAreaField("Item description")
-    submit = SubmitField("Edit")
-
-    def edit_item(id):
-        pass
+    submit = SubmitField("Submit")
