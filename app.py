@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
-from forms import ItemForm, EditForm
+from forms import ItemForm
 from db import db
 from models import Items
 from datetime import datetime
@@ -51,15 +51,18 @@ def delete(item_id):
 @app.route('/edit/<int:item_id>', methods=['GET', 'POST'])
 def update(item_id):
     item = Items.query.get_or_404(item_id)
-    edit_form = EditForm(obj=item ,csrf_enabled=False)
-    if request.method == 'POST' and edit_form.validate_on_submit():
-        item.name = edit_form.name.data #request.form["name"]
-        item.received_date = edit_form.received_date.data #request.form["received_date"]
-        item.is_defect = edit_form.is_defect.data #request.form["is_defect"]
-        item.description = edit_form.description.data #request.form["description"]
-        db.session.commit()
-        flash('Item updated succesfully')
-        return redirect(url_for('items'))
+    edit_form = ItemForm(obj=item ,csrf_enabled=False)
+    if request.method == 'POST':
+        item.name = edit_form.name.data
+        item.received_date = edit_form.received_date.data
+        item.is_defect = edit_form.is_defect.data
+        item.description = edit_form.description.data
+        try:
+            db.session.commit()
+            flash('Item updated succesfully')
+            return redirect(url_for('items'))
+        except:
+            db.session.rollback()
     return render_template('edit_item.html', edit_form=edit_form, item=item)
 
 
