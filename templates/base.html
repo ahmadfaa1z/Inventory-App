@@ -7,14 +7,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
   <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
+<body class="bg-slate-300">
   {% block content %}
   {% endblock %}
   <script src="{{ url_for('static', filename='node_modules/tw-elements/dist/js/index.min.js') }}"></script>
-  <script>
-    function myAlert() {
-      alert("Are you sure to delete?")
-    }
-  </script>
 </body>
 </html>
