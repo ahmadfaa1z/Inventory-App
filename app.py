@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
-from forms import ItemForm
+from forms import ItemForm, EditForm
 from db import db
 from models import Items
 from datetime import datetime
@@ -13,18 +13,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-
+# Routes
 @app.route('/')
 def index():
     return render_template("index.html")
-
 
 @app.route('/items', methods=['GET', 'POST'])
 def items():
     items = Items.query.all()
     items_date = Items.query.with_entities(Items.received_date).all()
     days_since = [(datetime.now().date()-date[0]).days for date in items_date]
-    edit_form = ItemForm(csrf_enabled=False)
     add_form = ItemForm(csrf_enabled=False)
     if add_form.validate_on_submit():
         item_data = Items(name=add_form.name.data, received_date=add_form.received_date.data,
@@ -32,13 +30,12 @@ def items():
         db.session.add(item_data)
         try:
             db.session.commit()
-            flash("add")
+            flash("Item added succesfully")
         except:
-            flash(add_form.errors)
+            flash('Item already exists')
             db.session.rollback()
         return redirect(url_for('items'))
-    return render_template("items.html", items_and_counts=zip(items, days_since), add_form=add_form, edit_form=edit_form)
-
+    return render_template("items.html", items_and_counts=zip(items, days_since), add_form=add_form)
 
 @app.route('/delete/<int:item_id>', methods=['GET', 'POST'])
 def delete(item_id):
@@ -46,24 +43,24 @@ def delete(item_id):
     db.session.delete(item)
     try:
         db.session.commit()
-        flash('delete')
+        flash('Item deleted succesfully')
     except:
         db.session.rollback()
     return redirect(url_for('items'))
 
-@app.route('/update/<int:item_id>', methods=['POST'])
+@app.route('/edit/<int:item_id>', methods=['GET', 'POST'])
 def update(item_id):
-    item = Items.query.get(item_id)
-    item.name = request.edit_form.data
-    item.received_date = request.edit_form.received_date
-    item.is_defect = request.edit_form.is_defect
-    item.description = request.edit_form.description
-    try:
+    item = Items.query.get_or_404(item_id)
+    edit_form = EditForm(obj=item ,csrf_enabled=False)
+    if request.method == 'POST' and edit_form.validate_on_submit():
+        item.name = edit_form.name.data #request.form["name"]
+        item.received_date = edit_form.received_date.data #request.form["received_date"]
+        item.is_defect = edit_form.is_defect.data #request.form["is_defect"]
+        item.description = edit_form.description.data #request.form["description"]
         db.session.commit()
-        flash('update')
-    except:
-        db.session.rollback()
-    return redirect(url_for('items'))
+        flash('Item updated succesfully')
+        return redirect(url_for('items'))
+    return render_template('edit_item.html', edit_form=edit_form, item=item)
 
 
 if __name__ == '__main__':
