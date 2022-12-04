@@ -8,7 +8,7 @@
 - This project is to test my ability to implement CRUD operations using Flask
 
 ### Home page
-<img src="https://user-images.githubusercontent.com/39882376/205478381-d266bde4-0121-47ba-8a3c-5912d8a1f14d.png" width="400px">
+<img src="https://user-images.githubusercontent.com/39882376/205478807-180c62f8-c2f2-440d-bcb3-4bc44c8d3836.png" width="400px">
 
 ### Items page
 <img src="https://user-images.githubusercontent.com/39882376/205478654-4086bd47-fbfe-49dc-be00-effa30f28a4e.png" width="600px">
