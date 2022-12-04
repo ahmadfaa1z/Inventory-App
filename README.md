@@ -7,7 +7,7 @@
 # A Personal Inventory App
 - This project is to test my ability to implement CRUD operations using Flask
 
-![image](https://user-images.githubusercontent.com/39882376/205478381-d266bde4-0121-47ba-8a3c-5912d8a1f14d.png)
+<img src="https://user-images.githubusercontent.com/39882376/205478381-d266bde4-0121-47ba-8a3c-5912d8a1f14d.png" width="400px">
 
 ## To create and run the app locally
 - Clone repository
