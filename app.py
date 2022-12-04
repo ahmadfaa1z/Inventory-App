@@ -1,8 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
-from forms import ItemForm
-from db import db
-from models import Items
 from datetime import datetime
+from forms import ItemForm
+from models import Items
+from db import db
+import os
 
 app = Flask(__name__)
 
@@ -12,6 +13,12 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_filename}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
+
+# create database if not yet exists
+if not os.path.exists(f'./instance/{db_filename}'):
+        # os.remove(f'./instance/{db_filename}')
+        with app.app_context():
+            db.create_all()
 
 # Routes
 @app.route('/')
@@ -39,7 +46,7 @@ def items():
 
 @app.route('/delete/<int:item_id>', methods=['GET', 'POST'])
 def delete(item_id):
-    item = Items.query.get(item_id)
+    item = Items.query.get_or_404(item_id)
     db.session.delete(item)
     try:
         db.session.commit()
