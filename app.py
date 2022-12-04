@@ -21,6 +21,10 @@ if not os.path.exists(f'./instance/{db_filename}'):
             db.create_all()
 
 # Routes
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('custom_error_page.html'), 404
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -71,7 +75,6 @@ def update(item_id):
         except:
             db.session.rollback()
     return render_template('edit_item.html', edit_form=edit_form, item=item)
-
 
 if __name__ == '__main__':
     app.run(debug=False)
