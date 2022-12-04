@@ -11,7 +11,7 @@
 <img src="https://user-images.githubusercontent.com/39882376/205478381-d266bde4-0121-47ba-8a3c-5912d8a1f14d.png" width="400px">
 
 ### Items page
-![image](https://user-images.githubusercontent.com/39882376/205478654-4086bd47-fbfe-49dc-be00-effa30f28a4e.png)
+<img src="https://user-images.githubusercontent.com/39882376/205478654-4086bd47-fbfe-49dc-be00-effa30f28a4e.png" width="600px">
 
 
 ## To create and run the app locally
