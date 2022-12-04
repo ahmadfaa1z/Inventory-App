@@ -5,6 +5,3 @@ instance/
 static/node_modules
 static/css/build.css
 
-Pipfile
-Pipfile.lock
-
