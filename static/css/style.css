@@ -3845,6 +3845,15 @@ textarea.form-control.is-invalid {
   margin-bottom: 0.5rem;
 }
 
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -3871,10 +3880,6 @@ textarea.form-control.is-invalid {
 
 .ml-auto {
   margin-left: auto;
-}
-
-.mb-5 {
-  margin-bottom: 1.25rem;
 }
 
 .mt-4 {
@@ -3927,6 +3932,40 @@ textarea.form-control.is-invalid {
 
 .h-4 {
   height: 1rem;
+}
+
+.h-96 {
+  height: 24rem;
+}
+
+.h-1\/2 {
+  height: 50%;
+}
+
+.h-1\/4 {
+  height: 25%;
+}
+
+.h-5\/6 {
+  height: 83.333333%;
+}
+
+.h-3\/4 {
+  height: 75%;
+}
+
+.min-h-fit {
+  min-height: -moz-fit-content;
+  min-height: fit-content;
+}
+
+.min-h-min {
+  min-height: -moz-min-content;
+  min-height: min-content;
+}
+
+.min-h-\[512px\] {
+  min-height: 512px;
 }
 
 .w-full {
@@ -4012,6 +4051,10 @@ textarea.form-control.is-invalid {
   flex-wrap: wrap;
 }
 
+.content-center {
+  align-content: center;
+}
+
 .items-center {
   align-items: center;
 }
@@ -4056,12 +4099,28 @@ textarea.form-control.is-invalid {
   align-self: center;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-clip {
+  overflow: clip;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
 }
 
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
 }
 
 .whitespace-nowrap {
@@ -4090,6 +4149,10 @@ textarea.form-control.is-invalid {
 
 .rounded-full {
   border-radius: 9999px;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
 }
 
 .rounded-t-md {
@@ -4177,6 +4240,11 @@ textarea.form-control.is-invalid {
   background-color: rgb(13 148 136 / var(--tw-bg-opacity));
 }
 
+.bg-slate-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+
 .bg-slate-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
@@ -4200,6 +4268,20 @@ textarea.form-control.is-invalid {
 .bg-green-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+
+.bg-slate-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
 .bg-contain {
@@ -4296,8 +4378,12 @@ textarea.form-control.is-invalid {
   vertical-align: top;
 }
 
-.text-7xl {
-  font-size: 4.5rem;
+.align-middle {
+  vertical-align: middle;
+}
+
+.text-5xl {
+  font-size: 3rem;
   line-height: 1;
 }
 
@@ -4326,9 +4412,8 @@ textarea.form-control.is-invalid {
   line-height: 1.75rem;
 }
 
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
+.font-extrabold {
+  font-weight: 800;
 }
 
 .font-medium {
@@ -4347,10 +4432,6 @@ textarea.form-control.is-invalid {
   font-weight: 700;
 }
 
-.font-extrabold {
-  font-weight: 800;
-}
-
 .uppercase {
   text-transform: uppercase;
 }
@@ -4367,6 +4448,11 @@ textarea.form-control.is-invalid {
   line-height: 1;
 }
 
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -4374,11 +4460,6 @@ textarea.form-control.is-invalid {
 
 .text-current {
   color: currentColor;
-}
-
-.text-gray-800 {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
 .text-black {
@@ -4421,9 +4502,9 @@ textarea.form-control.is-invalid {
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-.text-gray-600 {
+.text-slate-100 {
   --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
+  color: rgb(241 245 249 / var(--tw-text-opacity));
 }
 
 .opacity-50 {
@@ -4439,6 +4520,12 @@ textarea.form-control.is-invalid {
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 

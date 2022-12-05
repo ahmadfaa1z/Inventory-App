@@ -46,7 +46,7 @@ def items():
             flash('Item already exists')
             db.session.rollback()
         return redirect(url_for('items'))
-    return render_template("items.html", items_and_counts=zip(items, days_since), add_form=add_form)
+    return render_template("items.html", items_and_counts=zip(items, days_since), add_form=add_form, length=len(items))
 
 @app.route('/delete/<int:item_id>', methods=['GET', 'POST'])
 def delete(item_id):
@@ -77,4 +77,4 @@ def update(item_id):
     return render_template('edit_item.html', edit_form=edit_form, item=item)
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

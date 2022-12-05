@@ -6,7 +6,7 @@
     <li><span class="text-gray-500 mx-2">|</span></li>
     <li class="text-gray-500">Data</li>
   </ol>
-  {% if request.path == '/items' %}
+  {% if request.path == '/items' and length != 0 %}
     <div class=" flex justify-center">
       <button type="button"
         class="px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-emerald-800 active:shadow-lg transition duration-150 ease-in-out"

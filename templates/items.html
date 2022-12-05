@@ -6,6 +6,20 @@
 
 {% include 'header.html' %}
 {% include 'flash_message.html' %}
+
+{% if length == 0 %}
+  <div class="flex flex-col justify-evenly bg-slate-100 h-3/4 w-9/12 mx-auto rounded-xl shadow-xl overflow-clip">
+    <img src="{{ url_for('static', filename='img/add-file.png') }}" alt="Add new item" class="w-1/4 self-center">
+    <div class="flex justify-center">
+      <button type="button"
+        class="px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-emerald-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-toggle="modal" data-bs-target="#addItemModal" data-mdb-ripple="true" data-mdb-ripple-color="light">
+        Add New Item
+      </button>
+    </div>
+  </div>
+{% endif %}
+
 <div class="container px-5 py-2 mx-auto lg:px-32 mb-10">
   <div class="flex flex-wrap -m-1 md:-m-2 gap-4 justify-center">
     {% for item, day_counts in items_and_counts %}
