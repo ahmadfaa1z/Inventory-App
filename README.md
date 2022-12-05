@@ -5,7 +5,6 @@
 
 
 # A Personal Inventory App
-- This project is to test my ability to implement CRUD operations using Flask
 
 ### Home page
 <img src="https://user-images.githubusercontent.com/39882376/205478807-180c62f8-c2f2-440d-bcb3-4bc44c8d3836.png" width="400px">
@@ -20,6 +19,7 @@
   - **Python Dependencies**
     - Make sure you are in the folder that contains Pipfile
     - Run `pipenv install`
+      - Requires pipenv (`pip install pipenv`)
   - **Node Modules**
     - Change directory to the `static` folder
     - Run `npm install`
