@@ -77,4 +77,4 @@ def update(item_id):
     return render_template('edit_item.html', edit_form=edit_form, item=item)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
