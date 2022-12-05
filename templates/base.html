@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   <title>{% block title %}{% endblock %}</title>
 </head>
-  {% if request.path == '/' %}
-    <body class="bg-slate-300 h-screen lg:overflow-hidden"></body>
+  {% if request.path == '/' or length == 0 %}
+    <body class="bg-slate-300 h-screen lg:overflow-hidden min-h-[512px]"></body>
   {% else %}
-    <body class="bg-slate-300 h-screen"></body>
+    <body class="bg-slate-300 h-screen min-h-[512px]"></body>
   {% endif %}
   {% block content %}{% endblock %}
   <script src="{{ url_for('static', filename='node_modules/tw-elements/dist/js/index.min.js') }}"></script>
