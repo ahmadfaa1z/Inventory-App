@@ -19,6 +19,7 @@
   - **Python Dependencies**
     - Make sure you are in the folder that contains Pipfile
     - Run `pipenv install`
+      - Requires pipenv (`pip install pipenv`)
   - **Node Modules**
     - Change directory to the `static` folder
     - Run `npm install`
