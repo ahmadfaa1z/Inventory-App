@@ -16,9 +16,8 @@ db.init_app(app)
 
 # create database if not yet exists
 if not os.path.exists(f'./instance/{db_filename}'):
-        # os.remove(f'./instance/{db_filename}')
-        with app.app_context():
-            db.create_all()
+    with app.app_context():
+        db.create_all()
 
 # Routes
 @app.errorhandler(404)
